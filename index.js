@@ -5,42 +5,28 @@ const button = document.getElementById('add');
 const text = document.getElementById('param');
 const del = document.getElementById('del');
 const ul = document.createElement('ul');
+const checkbox = document.getElementById('checkbox');
 ul.classList.add('ul');
 let i=0;
 const list=[];
-const checkList=[];
-let j=0;
 
 //スケジュールリストリスト
-function ulMakeList(array){
-    const li = document.createElement('li')
-        li.textContent = text.value;
+function addList(array){
+    const li = document.createElement('li');
+        li.textContent = text.value; //テキスト入力した予定がリストに入る
         li.style.listStyle = 'none';
         array.push(li);
         ul.style.border='solid bottom 1px yellow';
-        document.querySelector('.ul').appendChild(array[i]);
+        document.querySelector('ul').appendChild(array[i]);
         i++;
 
         return array;
-}
+
+    }
 
 
 
-//チェックボックス生成
-function createCheckBox(array){
 
-    const check = document.createElement('button');
-    check.id = 'check';
-    check.type = 'checkbox';
-    check.style.width = '20px';
-    check.style.width = '20px';
-    array.push(check);
-    document.querySelector('body').appendChild(array[j]);
-    j++;
-
-    return array;
-
-}
 
 
 
@@ -59,15 +45,13 @@ return array[i];
 
 
 //削除処理
-function Delete(){
+function Delete(array){
     
-    checkList.pop(checkList[j]).remove();
-    j--;
-    list.pop(list[i]).remove();
+
+    array.pop(array[i]).remove();
     i--;
 
 }
-
 
 
 
@@ -79,15 +63,20 @@ function Delete(){
 
 //スケジュールとチェックボックス追加
     button.addEventListener('click',()=>{
-        ulMakeList(list); 
-        createCheckBox(checkList);      
-       
-
+        addList(list); 
 
     });
 
 
-    
+   checkbox.addEventListener('input',()=>{
+         del.addEventListener('click',()=>{
+            for(let j=0; j <=list.length ;j++){
+                console.log(list.length);
+                Delete(list);
+                //予定の数が微妙にずれるからあとで修正
+            }
+         });
+   }); 
 
 
 
@@ -95,7 +84,7 @@ function Delete(){
 
     //削除実行    
       del.addEventListener('click',()=>{
-        Delete();
+        Delete(list);
       
     });
 
