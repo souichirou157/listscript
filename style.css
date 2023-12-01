@@ -1,0 +1,11 @@
+@charset "utf-8";
+*{
+    background: green;
+    color:yellowgreen;
+}
+
+
+body{
+    display:flex;
+}
+
