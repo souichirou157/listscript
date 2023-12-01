@@ -1,11 +1,12 @@
 @charset "utf-8";
-*{
-    background: green;
+#add,#del{
+    
     color:yellowgreen;
 }
 
 
 body{
+    background: green;
     display:flex;
 }
 
