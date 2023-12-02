@@ -1,12 +1,54 @@
 @charset "utf-8";
-#add,#del{
-    
-    color:yellowgreen;
+*{
+    margin: 0px;
+    padding:0px;
+}
+:root{
+    --color:rgb(11, 184, 232);
+    --del:rgb(255,0,0);
+    --checkbox:rgb(169, 220, 0);
 }
 
+#denger{
+    display:flex;
+    position:absolute;
+    right:0px;
+    top:0px;
+}
+#message,#del{    
+    color:var(--del);
+}
 
 body{
-    background: green;
-    display:flex;
+    background: rgb(47, 49, 188);
 }
+
+
+
+#info{
+    position: absolute;
+    right:0px;
+    bottom:40px;
+}
+
+#info #add{
+    all:unset;
+    float:right;
+    border:right;
+    background:var(--color);
+    border-radius: 5px;
+    width:150px;
+    text-align: center;
+}
+
+#param{
+    width:500px;
+    height:200px;
+}
+
+
+
+
+
+
 
