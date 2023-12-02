@@ -13,6 +13,7 @@ let i=0;
 const list=[];
 
 
+
 //-------------methodes-----------------//
 
 
@@ -20,6 +21,7 @@ function addList(){
     const li = document.createElement('li');
     const textarea  =  text.value; 
         li.textContent =  textarea;
+        li.style.color = 'red';
         li.style.listStyle = 'none';
         list.push(li);
         ul.style.border='solid bottom 1px yellow';
@@ -51,23 +53,17 @@ function AllDelete(){
     button.addEventListener('click',()=>{
         addList(); 
         console.log(ul.children);
+       
     });
    
 
+  
 
 
-//all delete list child
-checkbox.addEventListener('input',()=>{
-    
-    if(del.addEventListener('click',()=>{
-        AllDelete();
-    }));
 
-    
 
-    
 
-});
+
 
 
 
@@ -76,6 +72,11 @@ checkbox.addEventListener('input',()=>{
     //delete 
       del.addEventListener('click',()=>{
         Delete();
+     
+        if(checkbox.checked === true) {
+            AllDelete();
+        } 
+        
     });
 
 
