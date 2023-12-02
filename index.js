@@ -5,87 +5,77 @@ const button = document.getElementById('add');
 const text = document.getElementById('param');
 const del = document.getElementById('del');
 const ul = document.createElement('ul');
+document.querySelector('body').appendChild(ul);
 const checkbox = document.getElementById('checkbox');
 ul.classList.add('ul');
+const clear = document.getElementById('clear');
 let i=0;
 const list=[];
 
-//スケジュールリストリスト
-function addList(array){
+
+//-------------methodes-----------------//
+
+
+function addList(){
     const li = document.createElement('li');
-        li.textContent = text.value; //テキスト入力した予定がリストに入る
+    const textarea  =  text.value; 
+        li.textContent =  textarea;
         li.style.listStyle = 'none';
-        array.push(li);
+        list.push(li);
         ul.style.border='solid bottom 1px yellow';
-        document.querySelector('ul').appendChild(array[i]);
+        document.querySelector('ul').appendChild(list[i]);
         i++;
-
-        return array;
-
-    }
-
-
-
-
-
-
-
-function changeRow(array){
-let i;
-if(array.length < 5){
-
-i=0;
-
-
-}
-
-return array[i];
-
-}
-
-
-//削除処理
-function Delete(array){
-    
-
-    array.pop(array[i]).remove();
-    i--;
-
 }
 
 
 
-//チェックボックスの大きさ修正から、後改行処理。
+
+function Delete(){
+    ul.firstChild.remove();
+}
+
+//リスト全削除
+function AllDelete(){
+    while(ul.firstChild){ // list exit first child
+        ul.removeChild(ul.firstChild); //delete
+    }    
+}
+
+//-----------------------------------------------------------------------
+
 
 {
 
-    document.querySelector('body').appendChild(ul);
-
-//スケジュールとチェックボックス追加
+    
+// add text in list
     button.addEventListener('click',()=>{
-        addList(list); 
-
+        addList(); 
+        console.log(ul.children);
     });
-
-
-   checkbox.addEventListener('input',()=>{
-         del.addEventListener('click',()=>{
-            for(let j=0; j <=list.length ;j++){
-                console.log(list.length);
-                Delete(list);
-                //予定の数が微妙にずれるからあとで修正
-            }
-         });
-   }); 
+   
 
 
 
+//all delete list child
+checkbox.addEventListener('input',()=>{
+    
+    if(del.addEventListener('click',()=>{
+        AllDelete();
+    }));
+
+    
+
+    
+
+});
 
 
-    //削除実行    
+
+
+
+    //delete 
       del.addEventListener('click',()=>{
-        Delete(list);
-      
+        Delete();
     });
 
 
