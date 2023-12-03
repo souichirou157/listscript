@@ -74,7 +74,9 @@ function AllDelete(){
         Delete();
      
         if(checkbox.checked === true) {
-            AllDelete();
+                  
+                AllDelete();
+    
         } 
         
     });
