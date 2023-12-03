@@ -8,10 +8,12 @@
     --del:rgb(255,0,0);
     --text:rgb(0,200,22);
     --checkbox:rgb(169, 220, 0);
+    --back:rgb(240, 236, 236);
 }
 
 #denger{
     display:flex;
+    position:fixed;
     position:absolute;
     right:0px;
     top:0px;
@@ -27,6 +29,7 @@ body{
 
 
 #info{
+    position: fixed;
     position: absolute;
     right:0px;
     bottom:40px;
@@ -51,5 +54,15 @@ body{
 
 
 
+
+#modal{
+    background: var(--back);
+    position: absolute;
+    top: -1000px;
+    height:100px;
+    width:200px;
+    padding: 64px;
+    text-align: center;
+}
 
 
