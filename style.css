@@ -26,7 +26,10 @@ body{
     background: rgb(47, 49, 188);
 }
 
-
+.log{
+    
+    color:yellow;
+}
 
 #info{
     position: fixed;
