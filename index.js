@@ -1,6 +1,6 @@
 'use strict'
-const date = new Date();
-let now = date.getFullYear();
+
+
 const button = document.getElementById('add');
 const text = document.getElementById('param');
 const del = document.getElementById('del');
@@ -15,6 +15,27 @@ const list=[];
 
 
 //-------------methodes-----------------//
+function count(){
+    setTimeout(clock(),1000);
+}
+
+function clock(){
+    const now = new Date(); 
+    let hh = now.getHours();// get gime
+    let mm = now.getMinutes();
+    let ss = now.getSeconds();
+    hh = hh<10? "0"+hh:hh;
+    mm = mm < 10? "0"+mm:mm;
+    ss = ss < 10? "0"+ss:ss;
+    const li = document.createElement('li');
+    li.textContent = hh+':' + mm + ':' + ss;
+    list.push(li);
+    document.querySelector('ul').appendChild(list[i]);
+    document.querySelector('.log').appendChild(ul);
+    i++;
+}
+
+
 
 
 function addList(){
@@ -24,12 +45,15 @@ function addList(){
         li.style.color = 'red';
         li.style.listStyle = 'none';
         list.push(li);
-        ul.style.border='solid bottom 1px yellow';
+        ul.id = 'list';
         document.querySelector('ul').appendChild(list[i]);
+        document.querySelector('.log').appendChild(ul);
         i++;
 }
 
-
+function textclear(){
+    text.value = '';
+}
 
 
 function Delete(){
@@ -51,30 +75,32 @@ function AllDelete(){
     
 // add text in list
     button.addEventListener('click',()=>{
-        addList(); 
+        count();          //2回連続で押したときまだ考えてない
+        text.value == ''?ul.firstChild.textContent = 'テキストデータが存在しないか取得できませんでした': addList(); 
         console.log(ul.children);
+      
        
     });
    
 
   
 
+   clear.addEventListener('click',()=>{
+     textclear();
+    });
 
 
 
 
 
 
-
-
-
-
-    //delete 
+    //delete 　空白で削除しようとしたときのメッセージまだ
       del.addEventListener('click',()=>{
         Delete();
      
         if(checkbox.checked === true) {
-                  
+
+            window.alert('logはすべて消去されます');      
                 AllDelete();
     
         } 
