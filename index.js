@@ -55,6 +55,7 @@ function textclear(){
     text.value = '';
 }
 
+//古い奴からけしていく(（笑）)
 
 function Delete(){
     ul.lastChild.remove();
