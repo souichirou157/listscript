@@ -57,7 +57,8 @@ function textclear(){
 
 
 function Delete(){
-    ul.firstChild.remove();
+    ul.lastChild.remove();
+    
 }
 
 //リスト全削除
@@ -88,7 +89,6 @@ function AllDelete(){
    clear.addEventListener('click',()=>{
      textclear();
     });
-
 
 
 
