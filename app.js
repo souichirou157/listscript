@@ -11,13 +11,19 @@ ul.classList.add('ul');
 const clear = document.getElementById('clear');
 let i=0;
 const list=[];
-
+const space = ' ';
 
 
 //-------------methodes-----------------//
 function count(){
     setTimeout(clock(),1000);
+ 
 }
+function check(button){
+    button.disabled = false;
+
+}
+
 
 function clock(){
     const now = new Date(); 
@@ -55,11 +61,12 @@ function textclear(){
     text.value = '';
 }
 
+
+
 //古い奴からけしていく(（笑）)
 
 function Delete(){
     ul.firstChild.remove();
-    
 }
 
 //リスト全削除
@@ -69,6 +76,9 @@ function AllDelete(){
     }    
 }
 
+
+
+
 //-----------------------------------------------------------------------
 
 
@@ -76,28 +86,49 @@ function AllDelete(){
 
     
 // add text in list
-    button.addEventListener('click',()=>{
-        count();          //2回連続で押したときまだ考えてない
-        text.value == ''?ul.firstChild.textContent = 'テキストデータが存在しないか取得できませんでした': addList(); 
-        console.log(ul.children);
-      
-       
-    });
-   
+   //テキストクリアボタン入力後アラ-トが出なくなる
+   //一括削除キャンセルがまだ聞いてない   
+button.addEventListener('click',()=>{
 
+    const charArray=[];
+    const spaceArray=[];
+    for(let i =0; i < text.value.length;i++){
+        if(text.value[i] === ' '){
+            spaceArray.push(text.value[i]);
+        }else{
+            charArray.push(text.value[i]);
+        }
+    }
+    console.log(charArray.length);
+    console.log(spaceArray.length);
+    if(charArray.length < spaceArray.length || charArray.length === 0){
+        button.disabled = true;
+        window.alert('空白文字列が入力文字数を超えています');
+       
+    }else {
+        count();        
+        addList(); 
+        console.log(ul.children);
+    }
+
+});
   
 
-   clear.addEventListener('click',()=>{
-     textclear();
-    });
+clear.addEventListener('click',()=>{
+    text.value = '';
+    button.disabled = true;
+});
 
 
-
+text.addEventListener('input',()=>{
+    check(button);
+});
 
 
     //delete 　空白で削除しようとしたときのメッセージまだ
       del.addEventListener('click',()=>{
         Delete();
+        console.log(ul.children);
      
         if(checkbox.checked === true) {
 
