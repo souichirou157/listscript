@@ -1,6 +1,4 @@
 'use strict'
-
-
 const button = document.getElementById('add');
 const text = document.getElementById('param');
 const del = document.getElementById('del');
@@ -8,20 +6,14 @@ const ul = document.createElement('ul');
 document.querySelector('body').appendChild(ul);
 const checkbox = document.getElementById('checkbox');
 ul.classList.add('ul');
-const clear = document.getElementById('clear');
 let i=0;
 const list=[];
-const space = ' ';
-
+let res_num =1;
 
 //-------------methodes-----------------//
 function count(){
     setTimeout(clock(),1000);
  
-}
-function check(button){
-    button.disabled = false;
-
 }
 
 
@@ -46,7 +38,8 @@ function clock(){
 
 function addList(){
     const li = document.createElement('li');
-    const textarea  =  text.value; 
+    const textarea = `${res_num}) :`+text.value;
+        res_num++;
         li.textContent =  textarea;
         li.style.color = 'red';
         li.style.listStyle = 'none';
@@ -57,39 +50,34 @@ function addList(){
         i++;
 }
 
-function textclear(){
-    text.value = '';
-}
-
-
 
 //古い奴からけしていく(（笑）)
 
+//ほかに良い方法思いつくまでとりあえずこれで　
 function Delete(){
-    ul.firstChild.remove();
+    for(let i=0 ; i < 2;i++){
+        ul.firstChild.remove(ul.firstChild);
+    }
+ 
 }
 
 //リスト全削除
 function AllDelete(){
     while(ul.firstChild){ // list exit first child
         ul.removeChild(ul.firstChild); //delete
-    }    
+    }
 }
 
 
 
 
-//-----------------------------------------------------------------------
 
 
-{
 
-    
-// add text in list
-   //テキストクリアボタン入力後アラ-トが出なくなる
-   //一括削除キャンセルがまだ聞いてない   
-button.addEventListener('click',()=>{
 
+
+
+function objectsJounal() {
     const charArray=[];
     const spaceArray=[];
     for(let i =0; i < text.value.length;i++){
@@ -103,41 +91,63 @@ button.addEventListener('click',()=>{
     console.log(spaceArray.length);
     if(charArray.length < spaceArray.length || charArray.length === 0){
         button.disabled = true;
-        window.alert('空白文字列が入力文字数を超えています');
-       
+        window.alert('空白文字数が不正です');
     }else {
         count();        
         addList(); 
         console.log(ul.children);
     }
+}
+
+
+
+//-----------------------------------------------------------------------
+
+
+{
+
+    //disabled false  send text button
+text.addEventListener('keyup',()=>{
+       button.disabled = false;
+});
+
+
+// add text in list
+button.addEventListener('click',()=>{
+    objectsJounal();
+    text.value = '';
+    button.disabled =true;
 
 });
   
 
-clear.addEventListener('click',()=>{
-    text.value = '';
-    button.disabled = true;
-});
-
-
-text.addEventListener('input',()=>{
-    check(button);
-});
-
-
-    //delete 　空白で削除しようとしたときのメッセージまだ
-      del.addEventListener('click',()=>{
-        Delete();
-        console.log(ul.children);
-     
+    //--delete action
+del.addEventListener('click',()=>{
+ 
+        // ---all delete
         if(checkbox.checked === true) {
-
-            window.alert('logはすべて消去されます');      
+            
+            if(!window.confirm('データはすべて消去されます')){
+                window.alert('キャンセルしました');
+            }else{
                 AllDelete();
-    
-        } 
+                res_num=1;        
+            }            
         
+        }
+        
+        //default  //1つずつ削除はインデックスリセットはしていない
+        if(checkbox.checked === false){
+            Delete();
+            console.log(ul.children);
+        }
+
+
     });
+
+       
+        
+   
 
 
 
