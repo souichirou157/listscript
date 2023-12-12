@@ -9,6 +9,9 @@
     --text:rgb(0,200,22);
     --checkbox:rgb(169, 220, 0);
     --back:rgb(240, 236, 236);
+    --save:rgb(35, 209, 145);
+    --body:rgb(38, 101, 189);
+    --time:rgb(104, 211, 42);
 }
 
 #denger{
@@ -18,18 +21,7 @@
     right:0px;
     top:0px;
 }
-#message,#del{    
-    color:var(--del);
-}
 
-body{
-    background: rgb(47, 49, 188);
-}
-
-.log{
-    
-    color:yellow;
-}
 
 #info{
     position: fixed;
@@ -41,8 +33,6 @@ body{
 #info #add{
     all:unset;
     float:right;
-    border:right;
-    background:var(--color);
     border-radius: 5px;
     width:150px;
     text-align: center;
@@ -53,8 +43,20 @@ body{
     height:200px;
 }
 
+#error{
+    margin: 32px auto;
+    text-align: center;
+}
 
-
+.save{
+    all:unset;
+    position: absolute;
+    right:0px;
+    top:30px;
+    border-radius: 5px;
+    width:150px;
+    text-align: center;
+}
 
 
 
