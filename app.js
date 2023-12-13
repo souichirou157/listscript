@@ -62,26 +62,12 @@ function clock(){
 
 //要素指定削除機能考える
 
-function addList(){
-    const li = document.createElement('li');
-    const textarea = `${res_num}) :`+text.value;
-        res_num++;
-        li.textContent =  textarea;
-        li.style.color = 'red';
-        li.style.listStyle = 'none';
-        list.push(li);
-        ul.id = 'list';
-        document.querySelector('ul').appendChild(list[i]);
-        document.querySelector('.time').appendChild(ul);
-        i++;
-};
-
 let increment ={
      
     res_num :1,
     addList: ()=>{
         const li = document.createElement('li');
-        const textarea = `${increment.res_num}) :`+text.value;
+        const textarea = `${increment.res_num}):`+text.value;
         increment.res_num++;
         li.textContent =  textarea;
         li.style.color = 'red';
