@@ -9,13 +9,12 @@ const link =document.querySelector('#save');
 const alldel =document.querySelector('#alldel');
 const error = document.querySelector('#error');
 const list=[];
-
+const checkboxlist=[];
 rem_error.id = 'ul.length_zeros';
 error.appendChild(rem_error);
 ul.classList.add('ul');
 document.querySelector('body').appendChild(ul);
 let i=0;
-let res_num =1;
 
 ////////////// cascard  style /////////////////////
  
@@ -40,9 +39,9 @@ link.style.background = 'var(--save)';
 
 //-------------methodes-----------------//
 function count(){
-    setTimeout(clock(),1000);
- 
-}
+    setTimeout(clock(),1000); 
+};
+
 
 function clock(){
     const now = new Date(); 
@@ -58,8 +57,10 @@ function clock(){
     document.querySelector('ul').appendChild(list[i]);
     document.querySelector('.time').appendChild(ul);
     i++;
-}
+};
 
+
+//要素指定削除機能考える
 
 function addList(){
     const li = document.createElement('li');
@@ -73,33 +74,48 @@ function addList(){
         document.querySelector('ul').appendChild(list[i]);
         document.querySelector('.time').appendChild(ul);
         i++;
-}
+};
 
-
-//古い奴からけしていく(（笑）)
-
-//ほかに良い方法思いつくまでとりあえずこれで
-function Delete(){
-    for(let i=0 ; i < 2;i++){
-        ul.firstChild.remove(ul.firstChild);
+let increment ={
+     
+    res_num :1,
+    addList: ()=>{
+        const li = document.createElement('li');
+        const textarea = `${increment.res_num}) :`+text.value;
+        increment.res_num++;
+        li.textContent =  textarea;
+        li.style.color = 'red';
+        li.style.listStyle = 'none';
+        list.push(li);
+        ul.id = 'list';
+        document.querySelector('ul').appendChild(list[i]);
+        document.querySelector('.time').appendChild(ul);
+        i++;
     }
-    if(!ul.firstChild){
-     rem_error.textContent ='現在データはありません';  
-         
-    } 
-}
+};
 
 
-//リスト全削除
-function AllDelete(){
-    while(ul.firstChild){ // list exit first child
-        ul.removeChild(ul.firstChild); //delete
+let Remove = {
+    
+    only: function (array){
+        for(let i=0 ; i < 2;i++){
+            array.removeChild(array.firstChild);
+        }
+        if(!ul.firstChild){
+         rem_error.textContent ='現在データはありません';
+        
+             
+        }        
     }
-    rem_error.textContent ='現在データはありません';  
-         
-}
+    ,
+    all: function (array){
+        while(array.firstChild){ // list exit first child
+            array.removeChild(array.firstChild); //delete
+        }
+        rem_error.textContent ='現在データはありません';  
+    },
 
-
+};
 
 
 
@@ -119,11 +135,11 @@ function objectsJounal() {
         button.disabled = true;
         window.alert('空白文字数が不正です');
     }else {
-        count();        
-        addList(); 
+        count();    
+        increment.addList(); 
         console.log(ul.children);
     }
-}
+};
 
 
 
@@ -138,19 +154,24 @@ text.addEventListener('keyup',()=>{
 });
 
 
+//空白文字エラーはアラート出るので削除ボタンの非活性が解除されるのでまた直す
 // add text in list
 button.addEventListener('click',()=>{
     objectsJounal();
     text.value = '';
-    button.disabled =true;
+    button.disabled =true; //テキスト空なら登録ボタン押せない
     rem_error.textContent ='';
-
+    del.disabled=false;
+    console.log(del.disabled);
 });
   
 
 //レス番号リセットはオールデリートだけ
     //--delete action
-del.addEventListener('click',()=>{
+
+    if(!ul.firstChild) del.disabled=true;
+  
+    del.addEventListener('click',()=>{
  
         // ---all delete
         if(checkbox.checked === true) {
@@ -158,21 +179,35 @@ del.addEventListener('click',()=>{
             if(!window.confirm('データはすべて消去されます')){
                 window.alert('キャンセルしました');
             }else{
-                AllDelete();
-                res_num=1;        
+                Remove.all(ul);
+                increment.res_num=1;
+                del.disabled = true;
+                console.log(del.disabled);
+                checkbox.checked= false;
+
             }            
         
-        }
+        } 
         
+        if(!ul.firstChild){
+            del.disabled = true;
+            console.log(del.disabled);
+        }
+
         //default  //1つずつ削除はインデックスリセットはしていない
         if(checkbox.checked === false){
-            Delete();
+            Remove.only(ul);
             console.log(ul.children);
+            console.log(del.disabled);
+            if(!ul.firstChild){
+                del.disabled = true;
+                console.log(del.disabled);
+            }
+        
         }
-
     });
 
-
+    
 
 
     
@@ -197,8 +232,11 @@ function saveText(){
 
 
 link.addEventListener('click',()=>{
-    saveText();
-});
+   
+    !ul.firstChild?link.disabled=false:document.write('<div id ="commit">データが保存されました</div>');
+     
+});//まだうまくいってない
+
 
 
 
