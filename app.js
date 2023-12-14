@@ -43,7 +43,7 @@ function count(){
 };
 
 
-function clock(){
+function AddTimeStamp(){
     const now = new Date(); 
     let hh = now.getHours();// get gime
     let mm = now.getMinutes();
@@ -61,68 +61,74 @@ function clock(){
 
 
 //要素指定削除機能考える
-
-let increment ={
-     
-    res_num :1,
-    addList: ()=>{
-        const li = document.createElement('li');
-        const textarea = `${increment.res_num}):`+text.value;
-        increment.res_num++;
-        li.textContent =  textarea;
-        li.style.color = 'red';
-        li.style.listStyle = 'none';
-        list.push(li);
-        ul.id = 'list';
-        document.querySelector('ul').appendChild(list[i]);
-        document.querySelector('.time').appendChild(ul);
-        i++;
-    }
-};
-
-
-let Remove = {
-    
-    only: function (array){
-        for(let i=0 ; i < 2;i++){
-            array.removeChild(array.firstChild);
+let Post ={
+    Item :{ 
+        res :1,
+        AddList: ()=>{
+            const li = document.createElement('li');
+            const textarea = `${Post.Item.res}):`+text.value;
+            Post.Item.res++;
+            li.textContent =  textarea;
+            li.style.color = 'red';
+            li.style.listStyle = 'none';
+            list.push(li);
+            ul.id = 'list';
+            document.querySelector('ul').appendChild(list[i]);
+            document.querySelector('.time').appendChild(ul);
+            i++;
         }
-        if(!ul.firstChild){
-         rem_error.textContent ='現在データはありません';
-        
-             
-        }        
     }
     ,
-    all: function (array){
-        while(array.firstChild){ // list exit first child
-            array.removeChild(array.firstChild); //delete
+    Remove :{
+    
+        DelOnly: function (array){
+            for(let i=0 ; i < 2;i++){
+                array.removeChild(array.firstChild);
+            }
+            if(!ul.firstChild){
+             rem_error.textContent ='現在データはありません';
+             del.disabled = true;
+            }        
         }
-        rem_error.textContent ='現在データはありません';  
-    },
+        ,
+        DelAll: function (array){
+            while(array.firstChild){ // list exit first child
+                array.removeChild(array.firstChild); //delete
+            }
+            rem_error.textContent ='現在データはありません';  
+            del.disabled = true;
 
+        },
+    
+    }
+    
 };
 
 
 
-function objectsJounal() {
-    const charArray=[];
-    const spaceArray=[];
+
+
+
+function Compare() {
+    const CharArray=[];
+    const SpaceArray=[];
     for(let i =0; i < text.value.length;i++){
         if(text.value[i] === ' '){
-            spaceArray.push(text.value[i]);
+            SpaceArray.push(text.value[i]);
         }else{
-            charArray.push(text.value[i]);
+            CharArray.push(text.value[i]);
         }
     }
-    console.log(charArray.length);
-    console.log(spaceArray.length);
-    if(charArray.length <= spaceArray.length || charArray.length === 0){
-        button.disabled = true;
+    console.log(CharArray.length);
+    console.log(SpaceArray.length);
+   
+    if( CharArray.length <= SpaceArray.length || CharArray.length === 0){
         window.alert('空白文字数が不正です');
+        del.disabled=true;
+        return;
     }else {
-        count();    
-        increment.addList(); 
+        AddTimeStamp();    
+        Post.Item.AddList(); 
         console.log(ul.children);
     }
 };
@@ -140,17 +146,26 @@ text.addEventListener('keyup',()=>{
 });
 
 
-//空白文字エラーはアラート出るので削除ボタンの非活性が解除されるのでまた直す
+//空白文字エラーでアラート出た後削除ボタンの非活性が解除されるのでまた直す
 // add text in list
 button.addEventListener('click',()=>{
-    objectsJounal();
+    Compare();
     text.value = '';
-    button.disabled =true; //テキスト空なら登録ボタン押せない
+    button.disabled =true;
     rem_error.textContent ='';
     del.disabled=false;
     console.log(del.disabled);
 });
   
+
+
+
+
+
+
+
+
+
 
 //レス番号リセットはオールデリートだけ
     //--delete action
@@ -164,9 +179,9 @@ button.addEventListener('click',()=>{
             
             if(!window.confirm('データはすべて消去されます')){
                 window.alert('キャンセルしました');
-            }else{
-                Remove.all(ul);
-                increment.res_num=1;
+            }else if(ul.children){
+                Post.Remove.DelAll(ul);
+                Post.Item.res=1;
                 del.disabled = true;
                 console.log(del.disabled);
                 checkbox.checked= false;
@@ -181,8 +196,8 @@ button.addEventListener('click',()=>{
         }
 
         //default  //1つずつ削除はインデックスリセットはしていない
-        if(checkbox.checked === false){
-            Remove.only(ul);
+        if(checkbox.checked === false && ul.children){
+            Post.Remove.DelOnly(ul);
             console.log(ul.children);
             console.log(del.disabled);
             if(!ul.firstChild){
