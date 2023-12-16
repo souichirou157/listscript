@@ -82,7 +82,7 @@ let Post ={
     Remove :{
     
         DelOnly: function (array){
-            for(let i=0 ; i < 2;i++){
+            for(let i=0 ; i <=1;i++){
                 array.removeChild(array.firstChild);
             }
             if(!ul.firstChild){
