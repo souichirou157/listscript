@@ -1,8 +1,5 @@
 @charset "utf-8";
-*{
-    margin: 0px;
-    padding:0px;
-}
+
 :root{
     --color:rgb(11, 184, 232);
     --del:rgb(255,0,0);
@@ -12,21 +9,29 @@
     --save:rgb(35, 209, 145);
     --body:rgb(38, 101, 189);
     --time:rgb(104, 211, 42);
+    --zeros:0px;
+    --center:32px auto;
 }
+
+*{
+    margin:var(--zeros);
+    padding:var(--zeros);
+}
+
 
 #denger{
     display:flex;
     position:fixed;
     position:absolute;
-    right:0px;
-    top:0px;
+    right:var(--zeros);
+    top:var(--zeros);
 }
 
 
 #info{
     position: fixed;
     position: absolute;
-    right:0px;
+    right:var(--zeros);
     bottom:40px;
 }
 
@@ -44,14 +49,14 @@
 }
 
 #error{
-    margin: 32px auto;
+    margin:var(--center);
     text-align: center;
 }
 
 .save{
     all:unset;
     position: absolute;
-    right:0px;
+    right:var(--zeros);
     top:30px;
     border-radius: 5px;
     width:150px;
