@@ -151,7 +151,6 @@ text.addEventListener('keyup',()=>{
 button.addEventListener('click',()=>{
     Compare();
     text.value = '';
-    button.disabled =true;
     rem_error.textContent ='';
     del.disabled=false;
     console.log(del.disabled);
