@@ -125,7 +125,6 @@ function Compare() {
     if( CharArray.length <= SpaceArray.length || CharArray.length === 0){
         window.alert('空白文字数が不正です');
         del.disabled=true;
-        return;
     }else {
         AddTimeStamp();    
         Post.Item.AddList();  
