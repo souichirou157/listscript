@@ -128,7 +128,8 @@ function Compare() {
         return;
     }else {
         AddTimeStamp();    
-        Post.Item.AddList(); 
+        Post.Item.AddList();  
+        button.disabled = false;
         console.log(ul.children);
     }
 };
@@ -152,7 +153,6 @@ button.addEventListener('click',()=>{
     Compare();
     text.value = '';
     rem_error.textContent ='';
-    del.disabled=false;
     console.log(del.disabled);
 });
   
