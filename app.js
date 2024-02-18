@@ -1,4 +1,16 @@
-'use strict'
+'use strict';
+const app = Vue.createApp({
+    data() {
+        return {
+            message: '投稿待ち'
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const result = app.mount('#result');
+    console.log(result.message);
+});
 const button = document.getElementById('add');
 const text = document.getElementById('param');
 const del = document.getElementById('del');
