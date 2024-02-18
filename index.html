@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <link rel="stylesheet" href="style.css">
-
+<div v-if = "del.disabled===true" id ="result" >投稿待ち</div>
 <header id ="denger">
     <input id = "checkbox" type="checkbox">
     <div id ="alldel"><div>
@@ -14,9 +14,6 @@
 <button  id = "del"type="button"></button>      
 <body>
     
-    
-
-   
     <div class ="time">
     </div> 
    
@@ -28,20 +25,16 @@
         <textarea id="param" type="text" value=""></textarea>
     </div>
     
-    
+
+  
     <a id ="save"></a>
 
-    <div id ='error'></div>
-    <div id ="modal">
-
-    <p>一括削除にチェックが入っていますよろしいですか?</p>
-        <br><small>logはすべて削除されます</small><br>
-        <button id = "modal-del">チェックを外して削除</button>
-    <div>
+    <div id ='ProcessMessage'></div>
+  
     
 
     <script src="app.js"></script>
 
-   
+
 </body>
 </html>
