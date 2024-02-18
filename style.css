@@ -11,13 +11,13 @@
     --time:rgb(104, 211, 42);
     --zeros:0px;
     --center:32px auto;
+    --addbtnWidth:150px;
 }
 
 *{
     margin:var(--zeros);
     padding:var(--zeros);
 }
-
 
 #denger{
     display:flex;
@@ -39,7 +39,7 @@
     all:unset;
     float:right;
     border-radius: 5px;
-    width:150px;
+    width:var(--addbtnWidth);
     text-align: center;
 }
 
@@ -48,7 +48,7 @@
     height:200px;
 }
 
-#error{
+#ProcessMessage{
     margin:var(--center);
     text-align: center;
 }
@@ -65,14 +65,10 @@
 
 
 
-#modal{
-    background: var(--back);
-    position: absolute;
-    top: -1000px;
-    height:100px;
-    width:200px;
-    padding: 64px;
-    text-align: center;
+#result
+{
+text-align: center;
+
 }
 
 
