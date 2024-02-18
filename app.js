@@ -1,29 +1,18 @@
-'use strict';
-const app = Vue.createApp({
-    data() {
-        return {
-            message: '投稿待ち'
-        }
-    }
-});
+'use-strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const result = app.mount('#result');
-    console.log(result.message);
-});
 const button = document.getElementById('add');
 const text = document.getElementById('param');
 const del = document.getElementById('del');
 const ul = document.createElement('ul');
 const checkbox = document.getElementById('checkbox');
-const rem_error =document.createElement('p');
+const AfterProcess =document.createElement('p');
 const link =document.querySelector('#save');
 const alldel =document.querySelector('#alldel');
-const error = document.querySelector('#error');
+const ProcessMessage = document.querySelector('#ProcessMessage');
 const list=[];
 const checkboxlist=[];
-rem_error.id = 'ul.length_zeros';
-error.appendChild(rem_error);
+AfterProcess.id = 'AfterProcess';
+ProcessMessage.appendChild(AfterProcess);
 ul.classList.add('ul');
 document.querySelector('body').appendChild(ul);
 let i=0;
@@ -44,9 +33,20 @@ document.querySelector('body').style.background= ' var(--body)'; //
 alldel.style.color = 'var(--del)';
 del.style.color = 'var(--del)';
 link.style.color = 'rgb(230,82,90)';
-error.style.background = 'var(--text)';
+ProcessMessage.style.background = 'var(--text)';
 link.style.background = 'var(--save)';
 /*---------------------------------------------------------*/
+
+const app = Vue.createApp({
+    data() {
+        return {
+            message: '投稿待ち'
+        }
+    }
+});
+
+
+
 
 
 //-------------methodes-----------------//
@@ -56,7 +56,7 @@ function count(){
 
 
 function AddTimeStamp(){
-    const now = new Date(); 
+    const now = new Date();
     let hh = now.getHours();// get gime
     let mm = now.getMinutes();
     let ss = now.getSeconds();
@@ -78,7 +78,7 @@ let Post ={
         res :1,
         AddList: ()=>{
             const li = document.createElement('li');
-            const textarea = `${Post.Item.res}):`+text.value;
+            const textarea = `${Post.Item.res}:`+text.value;
             Post.Item.res++;
             li.textContent =  textarea;
             li.style.color = 'red';
@@ -94,11 +94,11 @@ let Post ={
     Remove :{
     
         DelOnly: function (array){
-            for(let i=0 ; i <=1;i++){
+            for(let i=0 ; i < 2;i++){
                 array.removeChild(array.firstChild);
             }
             if(!ul.firstChild){
-             rem_error.textContent ='現在データはありません';
+            AfterProcess.textContent ='現在データはありません';
              del.disabled = true;
             }        
         }
@@ -107,8 +107,13 @@ let Post ={
             while(array.firstChild){ // list exit first child
                 array.removeChild(array.firstChild); //delete
             }
-            rem_error.textContent ='現在データはありません';  
-            del.disabled = true;
+            try{
+                AfterProcess.textContent ='現在データはありません';  
+                del.disabled = true;
+            }catch(error){
+                 throw Error(error);
+            }
+    
 
         },
     
@@ -131,19 +136,19 @@ function Compare() {
             CharArray.push(text.value[i]);
         }
     }
-    console.log(CharArray.length);
-    console.log(SpaceArray.length);
+
    
     if( CharArray.length <= SpaceArray.length || CharArray.length === 0){
         window.alert('空白文字数が不正です');
         del.disabled=true;
+        return;
     }else {
         AddTimeStamp();    
-        Post.Item.AddList();  
-        button.disabled = false;
+        Post.Item.AddList(); 
         console.log(ul.children);
     }
-};
+  
+    }
 
 
 
@@ -153,17 +158,19 @@ function Compare() {
 {
 
     //disabled false  send text button
-text.addEventListener('keyup',()=>{
+text.addEventListener('input',()=>{
        button.disabled = false;
 });
 
 
-//空白文字エラーでアラート出た後削除ボタンの非活性が解除されるのでまた直す
+
 // add text in list
 button.addEventListener('click',()=>{
     Compare();
     text.value = '';
-    rem_error.textContent ='';
+    button.disabled =true;
+    AfterProcess.textContent ='';
+    del.disabled=false;
     console.log(del.disabled);
 });
   
@@ -181,9 +188,8 @@ button.addEventListener('click',()=>{
     //--delete action
 
     if(!ul.firstChild) del.disabled=true;
-  
+    
     del.addEventListener('click',()=>{
- 
         // ---all delete
         if(checkbox.checked === true) {
             
@@ -195,33 +201,17 @@ button.addEventListener('click',()=>{
                 del.disabled = true;
                 console.log(del.disabled);
                 checkbox.checked= false;
-
             }            
-        
         } 
-        
-        if(!ul.firstChild){
-            del.disabled = true;
-            console.log(del.disabled);
-        }
 
         //default  //1つずつ削除はインデックスリセットはしていない
         if(checkbox.checked === false && ul.children){
             Post.Remove.DelOnly(ul);
             console.log(ul.children);
-            console.log(del.disabled);
-            if(!ul.firstChild){
-                del.disabled = true;
-                console.log(del.disabled);
-            }
-        
+            console.log(del.disabled);    
         }
     });
 
-    
-
-
-    
     
 
 
@@ -247,12 +237,12 @@ link.addEventListener('click',()=>{
     !ul.firstChild?link.disabled=false:document.write('<div id ="commit">データが保存されました</div>');
      
 });//まだうまくいってない
-
-
-
-
 }
    
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const result = app.mount('#result');
+    console.log(result.message);
+});
